@@ -4,10 +4,15 @@ const userCtrl = require("../controllers/users.controllers");
 const deliveryCtrl = require("../controllers/deliveries.controllers");
 const ordersCtrl = require("../controllers/orders.controllers");
 const makeExpressCallback = require("./expressCallback");
+const { routes } = require("../app");
 const router = express.Router();
 
-router.route("/").get(makeExpressCallback(userCtrl.getAllUsers));
-router.route("/:userId").get(makeExpressCallback(userCtrl.getAUser));
+router.get("/", makeExpressCallback(userCtrl.getAllUsers));
+router.get("/:userId", makeExpressCallback(userCtrl.getAUser));
+router.patch(
+  "/:userId",
+  makeExpressCallback(userCtrl.updateUserAvailibilityStatus)
+);
 
 // ORDERS ROUTE
 router.get("/:userId/orders", makeExpressCallback(ordersCtrl.getAllOrders));

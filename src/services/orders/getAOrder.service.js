@@ -8,11 +8,16 @@ const {
 } = require("../../helpers");
 const getAOrder = async ({ params }) => {
   let { userId, orderId } = params;
-
-  let order = userOrderDb.findOne({
-    user: userId,
-    _id: orderId,
-  });
+  const options = {
+    populate: [{ path: "user" }, { path: "product" }],
+  };
+  let order = userOrderDb.findOne(
+    {
+      user: userId,
+      _id: orderId,
+    },
+    options
+  );
   return order;
 };
 

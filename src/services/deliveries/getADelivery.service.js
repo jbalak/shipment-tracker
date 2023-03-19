@@ -10,8 +10,10 @@ const getADelivery = async ({ params, body }) => {
   if (!isDef(user)) {
     throw Boom.badRequest("user not found");
   }
-
-  let delivery = await deliveryOrderDb.findOne({ user: userId });
+  const options = {
+    populate: [{ path: "user" }, { path: "product" }, { path: "userOrder" }],
+  };
+  let delivery = await deliveryOrderDb.findOne({ user: userId }, options);
 
   return delivery;
 };

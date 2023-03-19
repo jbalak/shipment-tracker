@@ -8,6 +8,7 @@ const {
 const getAllOrders = async ({ params }) => {
   let { userId } = params;
   let sort = { createdAt: -1 };
+
   let orders = userOrderDb.find(
     {
       user: userId,
